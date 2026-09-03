@@ -1,0 +1,11 @@
+# Local/dev
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# clasp local binding (opsional)
+.clasp.json
+
+# logs
+*.log

@@ -316,12 +316,12 @@ function loadTeacherDashboard(){
       var d=res.data||{}, s=d.summary||{};
       var html='<div class="mb-4"><h3 class="fw-bold">Selamat datang, '+esc(AppState.user.name||'Guru')+' 👋</h3><p class="text-secondary">Berikut ringkasan kelas dan Course yang menjadi tanggung jawab Anda.</p></div>'+
         '<div class="row g-3 mb-4">'+
-        statCard('Kelas', Object.keys((d.class_recap||[]).reduce(function(m,r){if(r&&r.kelas)m[String(r.kelas)]=1;return m;},{})).length,'bi-people')+
+        statCard('Kelas', Array.isArray(d.classes) ? d.classes.length : 0,'bi-people')+
         statCard('Course', s.courses||0,'bi-collection-play')+
         statCard('Siswa', s.students||0,'bi-person')+
         statCard('Rata-rata', (s.average_score||0)+'','bi-bar-chart-line')+
         '</div>'+
-        '<div class="panel mb-4"><div class="d-flex justify-content-between align-items-center mb-3"><div><h5 class="mb-1">Performa Kelas</h5><div class="text-secondary small">Ringkasan nilai Course per kelas.</div></div><button class="btn btn-sm btn-outline-primary" onclick="navigate(\'analytics\')">Buka Analitik</button></div>'+renderTeacherClassMini(d.class_recap||[])+'</div>'+
+        '<div class="panel mb-4"><div class="d-flex justify-content-between align-items-center mb-3"><div><h5 class="mb-1">Performa Kelas</h5><div class="text-secondary small">Ringkasan nilai Course per kelas.</div></div><button class="btn btn-sm btn-outline-primary" onclick="navigate(\'analytics\')">Buka Analitik</button></div>'+renderTeacherClassMini(d.class_performance||[])+'</div>'+
         '<div class="panel"><h5 class="mb-3">Siswa yang Perlu Perhatian</h5>'+renderTeacherAttentionMini(d.at_risk||[])+'</div>';
       document.getElementById('content').innerHTML=html;
     },failure:function(err){showToast(errorMessage(err),'danger');}

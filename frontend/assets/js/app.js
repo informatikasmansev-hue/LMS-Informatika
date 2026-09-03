@@ -316,7 +316,7 @@ function loadTeacherDashboard(){
       var d=res.data||{}, s=d.summary||{};
       var html='<div class="mb-4"><h3 class="fw-bold">Selamat datang, '+esc(AppState.user.name||'Guru')+' 👋</h3><p class="text-secondary">Berikut ringkasan kelas dan Course yang menjadi tanggung jawab Anda.</p></div>'+
         '<div class="row g-3 mb-4">'+
-        statCard('Kelas', (d.class_recap||[]).reduce(function(m,r){m[r.kelas]=1;return m;},{}),'bi-people')+
+        statCard('Kelas', Object.keys((d.class_recap||[]).reduce(function(m,r){if(r&&r.kelas)m[String(r.kelas)]=1;return m;},{})).length,'bi-people')+
         statCard('Course', s.courses||0,'bi-collection-play')+
         statCard('Siswa', s.students||0,'bi-person')+
         statCard('Rata-rata', (s.average_score||0)+'','bi-bar-chart-line')+
